@@ -1,2 +1,6 @@
+numpy
+flask
+flask_restful
+annoy
+nltk
 nose
-sphinx
