@@ -1,5 +1,6 @@
 init:
 	pip3 install -r requirements.txt
+	python3 utils/generate_data.py
 
 test:
 	nosetests tests
