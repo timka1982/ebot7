@@ -7,3 +7,6 @@ test:
 
 start:
 	python3 main.py
+
+multi:
+	python3 resources/process_manager.py
