@@ -1,3 +1,21 @@
+# Instructions
+
+## Getting Started
+
+To complete this coding challenge make sure you have python3 installed on your system.
+
+All that remains to be done is run:
+
+    make init
+
+
+This will install a virtualenv in python3. Thereafter a new virtualenv called "coding_challenge" will be created. All required packages for this challenge will be installed in this virtualenv.
+
+Note: This will only activate the virtualenv in the terminal you used to run make init. All additional terminals you open you will have to explicitly activate the virtualenv using:
+
+    source coding_challenge/bin/activate
+
+
 ## Task 1 
 
 Your team has been asked to manage a server which acts as a micro service for a dating app. Its goal is to return a list of profiles which fit best to the input profile. It works by creating an n-dimensional vector for each profile. These vectors are commonly referred to as embeddings and lie at the heart of modern deep learning. They contain an abstract notion of the meaning of the data by training a vectorizer function on some dataset. 

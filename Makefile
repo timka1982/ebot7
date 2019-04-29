@@ -1,6 +1,11 @@
 init:
-	pip3 install -r requirements.txt
-	python3 utils/generate_data.py
+	( \
+  		python3 -m pip install --user virtualenv; \
+		python3 -m venv coding_challenge; \
+		. coding_challenge/bin/activate; \
+		pip3 install -r requirements.txt; \
+		python3 utils/generate_data.py; \
+	)
 
 test:
 	nosetests tests
@@ -10,3 +15,5 @@ start:
 
 multi:
 	python3 resources/process_manager.py
+
+

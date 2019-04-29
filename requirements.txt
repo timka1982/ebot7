@@ -2,6 +2,5 @@ numpy==1.16.1
 flask
 flask_restful
 annoy
-nltk
 nose
 bson
