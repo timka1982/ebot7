@@ -2,6 +2,8 @@
 
 ## Getting Started
 
+### Linux
+
 To complete this coding challenge make sure you have python3 installed on your system.
 
 All that remains to be done is run:
@@ -11,9 +13,13 @@ All that remains to be done is run:
 
 This will install a virtualenv in python3. Thereafter a new virtualenv called "coding_challenge" will be created. All required packages for this challenge will be installed in this virtualenv.
 
-Note: This will only activate the virtualenv in the terminal you used to run make init. All additional terminals you open you will have to explicitly activate the virtualenv using:
+Note: This will only create the virtualenv. To activate it you will have to run:
 
     source coding_challenge/bin/activate
+
+### Windows
+
+For windows users we unfortunately do not have an automated script. Please ensure all packages listed in requiremenmts.txt are met and that you are running Python 3.6. For Task 3 simply run `python3 resources/process_manager.py`
 
 
 ## Task 1 
@@ -22,7 +28,7 @@ Your team has been asked to manage a server which acts as a micro service for a 
 
 A separate datascience team has provided you with this vectorization function (found in utils/vectorize.py). They have also been kind enough to provide you with a pickle file containing all the dating profiles on your application. 
 
-The micro service will have an endpoint called /recommend/_id/n where _id is a unique id of each profile in the database. Your goal is to create the functionality for this endpoint and have it return the n nearest neighbours.
+The micro service will have an endpoint called `/recommend/_id/n` where `_id` is a unique id of each profile in the database. Your goal is to create the functionality for this endpoint and have it return the `n` nearest neighbours.
 
 
 Your colleague has already implemented most of the functionality regarding the server setup.
@@ -40,10 +46,10 @@ Your job is to finish the functionality in endpoints.py . To do this you may cre
 ## Task 2
 
 While the solution above is probably sufficient for our current number of vectors it does not scale if the task is to find nearest neighbours of 1M+ vectors. 
-To do this efficiently your team has decided to use the annoy library which is implemented in C++ for speed. 
+To do this efficiently your team has decided to use the [annoy](https://github.com/spotify/annoy) library which is implemented in C++ for speed. 
 
 This task will not require your understanding of the inner workings of the annoy library beyond the following:
-Annoy works by first adding all vectors using the add_item(i, v) function. It only accepts integers (0-n) as keys to the vectors so you need to store a separate mapping file which maps these integers to their actual value. Thereafter it builds an index for fast lookup. Once the index has been built you cannot add further vectors to it. This index can be written and read to and from disk using the save and load function respectively. A built index has the method get_nns_by_vector() which returns the n nearest neighbours of that particular vector as well as the distance.
+Annoy works by first adding all vectors using the `add_item(i, v)` function. It only accepts integers (0-n) as keys to the vectors so you need to store a separate mapping file which maps these integers to their actual value. Thereafter it builds an index for fast lookup. Once the index has been built you cannot add further vectors to it. This index can be written and read to and from disk using the save and load function respectively. A built index has the method `get_nns_by_vector()` which returns the n nearest neighbours of that particular vector as well as the distance.
 
 However using this library also presents its own challenges. 
 As index files are immutable after they have been built we will have to keep creating new indices and writing them to disk.
@@ -86,17 +92,19 @@ Your colleague has begun to implement a skeleton for solution 1 from the task ab
 
 The goal is only to have the exoskeleton in place which handles the logic of switching the role of each task. The actual operations performed by each role need not be implemented.
 
-To run the code please run make multi
+To run the code please run:
+
+    make multi
 
 
 ## Task 4 
 
-In the refactor folder is a file named <pre>normalize.py</pre> which is used to normalize texts for various languages. 
-It needs to be refactored desperately. Without changing any of the functionality please do so paying special attention to readability, reusability and testability. 
+In the refactor folder is a file named `normalize.py` which is used to normalize texts for various languages. 
+It needs to be refactored desperately. Without changing any of the functionality please do so paying special attention to readability, reusability and testability. In the accompanying markdown file `normalize.md` please motivate your 3 biggest code changes. 
 
 ## Task 5 - Bonus
 
-In the bug_fix folder you will find a file named <pre>groceries.py</pre>. The Groceries class contains a small bug which leads to unexpected behaviour. Your task is to identify and eliminate the bug.
+In the bug_fix folder you will find a file named `groceries.py`. The Groceries class contains a small bug which leads to unexpected behaviour. Your task is to identify and eliminate the bug.
 
 
 
