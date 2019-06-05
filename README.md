@@ -26,7 +26,7 @@ For windows users we unfortunately do not have an automated script. Please ensur
 
 Your team has been asked to manage a server which acts as a micro service for a dating app. Its goal is to return a list of profiles which fit best to the input profile. It works by creating an n-dimensional vector for each profile. These vectors are commonly referred to as embeddings and lie at the heart of modern deep learning. They contain an abstract notion of the meaning of the data by training a vectorizer function on some dataset. 
 
-A separate datascience team has provided you with this vectorization function (found in utils/vectorize.py). They have also been kind enough to provide you with a pickle file containing all the dating profiles on your application. 
+A separate datascience team has provided you with this vectorization function (found in utils/vectorize.py). They have also been kind enough to provide you with a pickle file `data/profiles.pickle` containing all the dating profiles on your application. 
 
 The micro service will have an endpoint called `/recommend/_id/n` where `_id` is a unique id of each profile in the database. Your goal is to create the functionality for this endpoint and have it return the `n` nearest neighbours.
 
