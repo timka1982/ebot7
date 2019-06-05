@@ -64,7 +64,16 @@ Please do so in structured prose using 500 words or less.
 
 ### Solution 1 
 
-We will have one main process running the server and communicating with the outside world. This main process will have two child processes p0 and p1. When they are started p0 becomes the so-called fetch process. Its task is to find and read the latest index file. Once it has done so it lets the main process know it is ready to handle requests. At this point the main process assigns p0 the role of the answer process. p1 is assigned the fetch process role. Once p1 is finished fetching all (potentially new) indices it will become the answer process and p0 will be instructed to fetch once more. 
+We will have one main process running the server and communicating with the outside world. 
+
+OLD EXPLANATION
+This main process will have two child processes p0 and p1. When they are started p0 becomes the so-called fetch process. Its task is to find and read the latest index file. Once it has done so it lets the main process know it is ready to handle requests. At this point the main process assigns p0 the role of the answer process. p1 is assigned the fetch process role. Once p1 is finished fetching all (potentially new) indices it will become the answer process and p0 will be instructed to fetch once more. 
+
+NEW EXPLANATION
+This main process will have two child processes p0 and p1 and two tasks:
+- fetch: this is the task of find and read the latest index file.
+- answer: this is the task of finding the nearest neighburs.
+The two processes p0 and p1 alternate on performing the two tasks.
 
 These 2 processes will continue to switch roles indefinitely. The main process will always use the subprocess which has most recently finished its fetch process in order to handle requests.
 
