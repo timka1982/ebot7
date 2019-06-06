@@ -69,7 +69,7 @@ We will have one main process running the server and communicating with the outs
 - fetch: this is the task of finding and reading the latest index file.
 - answer: this is the task of finding the nearest neighburs.
 
-These 2 processes will continue to switch roles indefinitely. The main process will always use the subprocess which has most recently finished its fetch process in order to handle requests.
+These 2 processes will switch roles once the fetch process has completed. The main process will always use the subprocess which is assigned the role of the answer process in order to handle requests.
 
 #### Solution 2
   
