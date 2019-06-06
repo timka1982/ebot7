@@ -23,6 +23,7 @@ For windows users we unfortunately do not have an automated script. Please ensur
 
 
 ## Task 1
+
 ### Description
 
 Your team has been asked to manage a server which acts as a micro service for a dating app. Its goal is to return a list of profiles which fit best to the input profile. It works by creating an n-dimensional vector for each profile. These vectors are commonly referred to as embeddings and lie at the heart of modern deep learning. They contain an abstract notion of the meaning of the data by training a vectorizer function on some dataset. 
@@ -44,8 +45,8 @@ Your job is to finish the functionality in `resources/endpoints.py`. To do this 
 - Run `make start` to run the server.
 
 
-
 ## Task 2
+
 ### Description
 
 While the solution above is probably sufficient for our current number of vectors it does not scale if the task is to find nearest neighbours of 1M+ vectors. 
@@ -97,8 +98,8 @@ Your analysis.
 Your solution.
 
 
-
 ## Task 3
+
 ### Description
 
 Your colleague has begun to implement a skeleton for solution 1 from the task above. Somehow he has introduced a bug which makes the processes unresponsive. He has asked for your help to get it working. The code can be found in `resources/process_manager.py`.
@@ -109,10 +110,20 @@ Your colleague has begun to implement a skeleton for solution 1 from the task ab
 - To run the code please run `make multi`.
 
 
-## Task 4 
+## Task 4
+
+### Description
 
 In the refactor folder is a file named `normalize.py` which is used to normalize texts for various languages. 
-It needs to be refactored desperately. Without changing any of the functionality please do so paying special attention to readability, reusability and testability. In the accompanying markdown file `normalize.md` please motivate your 3 biggest code changes. 
+It needs to be refactored desperately. 
+
+### Instructions:
+- Refactor `normalize.py` without changing any of the functionality. Please do so paying special attention to readability, reusability and testability. 
+- Please motivate your 3 biggest code changes below:
+
+#### Code changes
+
+Your motivations.
 
 ## Task 5 - Bonus
 
