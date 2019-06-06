@@ -1,6 +1,6 @@
 init:
 	( \
-  		python3 -m pip install --user virtualenv; \
+		python3 -m pip install --user virtualenv; \
 		python3 -m venv coding_challenge; \
 		. coding_challenge/bin/activate; \
 		pip3 install -r requirements.txt; \
