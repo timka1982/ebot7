@@ -81,13 +81,13 @@ All that is left to do for the Main process upon receiving a new request is sele
 
 #### Solution 3 
 
-Annoy gives an option to mmap the index file instead of reading it into memory completely. If you are unfamiliar with what mmap does please check wikipedia. This will dramatically increase the speed at which indices are loaded thus solving our problem.
+Annoy gives an option to mmap the index file instead of reading it into memory completely. If you are unfamiliar with what mmap does please check wikipedia [mmap](https://en.wikipedia.org/wiki/Mmap). This will dramatically increase the speed at which indices are loaded thus solving our problem.
 
 ### Instructions:
 
-- Analyze each solution outline and to compare them against one another. 
-- Come up with your own best solution and compare them to your colleagues. 
-- Please do so in structured prose using 500 words or less. Write your analysis and suggestion below:
+- Analyze each solution and compare them against one another. 
+- Come up with your own best solution and compare them to your colleague solutions.
+- Please do so using 500 words or less. Write your analysis and suggestion below:
 
 #### Analysis
 
@@ -127,7 +127,10 @@ Your motivations.
 
 ## Task 5 - Bonus
 
-In the bug_fix folder you will find a file named `groceries.py`. The Groceries class contains a small bug which leads to unexpected behaviour. Your task is to identify and eliminate the bug.
+### Description
 
+In the bug_fix folder you will find a file named `groceries.py`. The Groceries class contains a small bug which leads to unexpected behaviour. 
 
+### Instructions:
 
+Your task is to identify and eliminate the bug.
