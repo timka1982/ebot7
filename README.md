@@ -22,7 +22,8 @@ Note: This will only create the virtualenv. To activate it you will have to run:
 For windows users we unfortunately do not have an automated script. Please ensure all packages listed in requiremenmts.txt are met and that you are running Python 3.6. For Task 3 simply run `python3 resources/process_manager.py`
 
 
-## Task 1 
+## Task 1
+### Description
 
 Your team has been asked to manage a server which acts as a micro service for a dating app. Its goal is to return a list of profiles which fit best to the input profile. It works by creating an n-dimensional vector for each profile. These vectors are commonly referred to as embeddings and lie at the heart of modern deep learning. They contain an abstract notion of the meaning of the data by training a vectorizer function on some dataset. 
 
@@ -35,11 +36,12 @@ Your colleague has already implemented most of the functionality regarding the s
 He couldn’t quite get the functionality right and has gone and simply hard coded some dummy data of how the server should respond.
 Your job is to finish the functionality in `resources/endpoints.py`. To do this you may create any additional external/auxiliary methods or classes as you see fit as long as the /recommend/ endpoint is left unchanged.
 
-### Acceptance Criteria:
+### Instructions:
 
 - Your module successfully reads in pickle file from disk and stores the contents in memory
 - The Recommend endpoint returns the correct n nearest neighbour of an incoming profile by cosine distance.
 - All edge cases are handled intelligently and proactively
+- Run `make start` to run the server
 
 
 
