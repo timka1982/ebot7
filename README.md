@@ -29,7 +29,7 @@ Your team has been asked to manage a server which acts as a micro service for a 
 
 A separate datascience team has provided you with this vectorization function (found in `utils/vectorize.py`). They have also been kind enough to provide you with a pickle file (found in `data/profiles.pickle`) containing all the dating profiles on your application. 
 
-The micro service will have an endpoint called `/recommend/_id/n` where `_id` is a unique id of each profile in the database. Your goal is to create the functionality for this endpoint and have it return the `n` nearest neighbours.
+The micro service will have an endpoint called `/recommend/_id/n` where `_id` is a unique id of each profile in the database (pickle file). Your goal is to create the functionality for this endpoint and have it return the `n` nearest neighbours.
 
 
 Your colleague has already implemented most of the functionality regarding the server setup.
@@ -38,14 +38,15 @@ Your job is to finish the functionality in `resources/endpoints.py`. To do this 
 
 ### Instructions:
 
-- Your module successfully reads in pickle file from disk and stores the contents in memory
-- The Recommend endpoint returns the correct n nearest neighbour of an incoming profile by cosine distance.
-- All edge cases are handled intelligently and proactively
-- Run `make start` to run the server
+- Your module successfully reads in pickle file from disk and stores the contents in memory.
+- The recommend endpoint returns the correct n nearest neighbour of an incoming profile ordered by cosine similarity.
+- All edge cases are handled intelligently and proactively.
+- Run `make start` to run the server.
 
 
 
 ## Task 2
+### Description
 
 While the solution above is probably sufficient for our current number of vectors it does not scale if the task is to find nearest neighbours of 1M+ vectors. 
 To do this efficiently your team has decided to use the [annoy](https://github.com/spotify/annoy) library which is implemented in C++ for speed. 
@@ -59,10 +60,6 @@ Creating new indices is computationally expensive so it should be moved to a sep
 Reading in a new index file can take several seconds as it is done via slow IO operations.
 
 As our customers demand that they always have fast response times your team has come up with 3 potential solutions. 
-
-Your task is to analyze each solution outline and to compare them against one another. Furthermore you should come up with your own best solution and compare them to your colleagues. 
-
-Please do so in structured prose using 500 words or less.
 
 ### Solution 1 
 
@@ -92,7 +89,17 @@ All that is left to do for the Main process upon receiving a new request is sele
 
 Annoy gives an option to mmap the index file instead of reading it into memory completely. If you are unfamiliar with what mmap does please check wikipedia. This will dramatically increase the speed at which indices are loaded thus solving our problem.
 
-### Solution 4
+### Instructions:
+
+- Analyze each solution outline and to compare them against one another. 
+- Come up with your own best solution and compare them to your colleagues. 
+- Please do so in structured prose using 500 words or less. Write your analysis and suggestion below:
+
+#### Analysis
+
+Your analysis.
+
+#### Solution 4
 
 Your solution.
 
