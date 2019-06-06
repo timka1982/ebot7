@@ -61,23 +61,16 @@ Reading in a new index file can take several seconds as it is done via slow IO o
 
 As our customers demand that they always have fast response times your team has come up with 3 potential solutions. 
 
-### Solution 1 
+#### Solution 1 
 
-We will have one main process running the server and communicating with the outside world. 
+We will have one main process running the server and communicating with the outside world. This main process will have two child processes p0 and p1 and two tasks:
 
-OLD EXPLANATION
-
-This main process will have two child processes p0 and p1. When they are started p0 becomes the so-called fetch process. Its task is to find and read the latest index file. Once it has done so it lets the main process know it is ready to handle requests. At this point the main process assigns p0 the role of the answer process. p1 is assigned the fetch process role. Once p1 is finished fetching all (potentially new) indices it will become the answer process and p0 will be instructed to fetch once more. 
-
-NEW EXPLANATION
-
-This main process will have two child processes p0 and p1 and two tasks:
-- fetch: this is the task of find and read the latest index file.
+- fetch: this is the task of finding and reading the latest index file.
 - answer: this is the task of finding the nearest neighburs.
 
 These 2 processes will continue to switch roles indefinitely. The main process will always use the subprocess which has most recently finished its fetch process in order to handle requests.
 
-### Solution 2
+#### Solution 2
   
 We will have one main process running the server and communicating with the outside world. There will be an Auxiliary process. The auxiliary processes task is to continuously look for new index files. As soon as it discovers one it will spawn a new process to read in this index. Once the new process completes the index read it will tell the Auxiliary process that is now ready to handle requests.
 
@@ -85,7 +78,7 @@ The Auxiliary process and the Main process have a shared piece of memory. Upon r
 
 All that is left to do for the Main process upon receiving a new request is selecting which child process it will use to answer this request. 
 
-### Solution 3 
+#### Solution 3 
 
 Annoy gives an option to mmap the index file instead of reading it into memory completely. If you are unfamiliar with what mmap does please check wikipedia. This will dramatically increase the speed at which indices are loaded thus solving our problem.
 
@@ -106,14 +99,14 @@ Your solution.
 
 
 ## Task 3
+### Description
 
-Your colleague has begun to implement a skeleton for solution 1 from the task above. Somehow he has introduced a bug which makes the processes unresponsive. He has asked for your help to get it working. 
+Your colleague has begun to implement a skeleton for solution 1 from the task above. Somehow he has introduced a bug which makes the processes unresponsive. He has asked for your help to get it working. The code can be found in `resources/process_manager.py`.
 
-The goal is only to have the exoskeleton in place which handles the logic of switching the role of each task. The actual operations performed by each role need not be implemented.
-
-To run the code please run:
-
-    make multi
+### Instructions:
+- The goal is only to have the exoskeleton in place which handles the logic of switching the role of each task. The actual operations performed by each role need **not** be implemented.
+- Use multiprocessing to implement the solution.
+- To run the code please run `make multi`.
 
 
 ## Task 4 
