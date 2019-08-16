@@ -19,16 +19,17 @@ def process_func(connection, idx):
 
 
 def manager_func(main_conn, child_conn):
+    p0 = Process(target=process_func, args=(child_conn, 0))
     p1 = Process(target=process_func, args=(child_conn, 1))
     print('starting up child processes')
+    p0.start()
     p1.start()
-    p2.start()
     while True:
+        if not p0.is_alive():
+            print('p0 has died')
+            break
         if not p1.is_alive():
             print('p1 has died')
-            break
-        if not p2.is_alive():
-            print('p2 has died')
             break
         time.sleep(0.1)
     print('EXITING LOOP :(')
