@@ -135,4 +135,4 @@ In the bug_fix folder you will find a file named `groceries.py`. The Groceries c
 
 Your task is to identify and eliminate the bug.
 
-## NB: Please don't forget to push your changes when you finish the challenge! 
+## N.B.: Please don't forget to push your changes when you finish the challenge! 
