@@ -19,7 +19,12 @@ Note: This will only create the virtualenv. To activate it you will have to run:
 
 ### Windows
 
-For windows users we unfortunately do not have an automated script. Please ensure all packages listed in requiremenmts.txt are met and that you are running Python 3.6. For Task 3 simply run `python3 resources/process_manager.py`
+For windows users we unfortunately do not have an automated script. Please ensure all packages listed in requirements.txt are met and that you are running Python 3.6. Then run
+```
+python3 utils/generate_data.py
+```
+
+For Task 3 simply run `python3 resources/process_manager.py`.
 
 
 ## Task 1
