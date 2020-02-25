@@ -1,6 +1,0 @@
-numpy==1.16.1
-flask
-flask_restful
-annoy==1.15.2 
-nose
-bson
