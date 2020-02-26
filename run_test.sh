@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+image_id=$(docker build -q . | awk -F':' '{print $2}')
+docker run $image_id python -m unittest discover -s python_coding_challenge_test -p "*test*.py"
