@@ -22,9 +22,9 @@ Here are some screenshots to show this behaviour, initially we start with an
 empty list of selected tags. As the visitor clicks on more tags his answer
 becomes ever more specific.
 
-    ![empty list](0.png "No tags selected")
-    ![one item](1.png "One tag selected")
-    ![two items](2.png "Two tags selected")
+![empty list](0.png "No tags selected")
+![one item](1.png "One tag selected")
+![two items](2.png "Two tags selected")
 
 
 Your task is to build an API which will power this functionality. Unfortunately
