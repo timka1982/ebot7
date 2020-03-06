@@ -1,143 +1,220 @@
-# Instructions
-
-## Getting Started
-
-### Linux
-
-To complete this coding challenge make sure you have python3 installed on your system.
-
-All that remains to be done is run:
-
-    make init
+# Python Coding Challenge
 
 
-This will install a virtualenv in python3. Thereafter a new virtualenv called "coding_challenge" will be created. All required packages for this challenge will be installed in this virtualenv.
+Please read all instructions before beginning to implement a solution as later
+specifications could affect earlier design choices.
 
-Note: This will only create the virtualenv. To activate it you will have to run:
 
-    source coding_challenge/bin/activate
+You have been asked to implement a service funnel for one of your customers.
+Their specifications are as follows:
 
-### Windows
 
-For windows users we unfortunately do not have an automated script. Please ensure all packages listed in requirements.txt are met and that you are running Python 3.6. Then run
+*The end goal is to have a website where visitors can click on tags/topics and
+combine several of these to receive detailed information. The typical user will
+land on the page without knowing precisely what they are looking for. To guide
+this visitor we will show a list of predefined tags which are most frequently
+searched/visited. The visitor will click on the first tag he sees as related to
+his problem and then choose ever more fine-grained tags until he reaches his
+final topic/piece of information he is searching for.*
+
+
+Here are some screenshots to show this behaviour, initially we start with an
+empty list of selected tags. As the visitor clicks on more tags his answer
+becomes ever more specific.
+
+![empty list](0.png "No tags selected")
+![one item](1.png "One tag selected")
+![two items](2.png "Two tags selected")
+
+
+Your task is to build an API which will power this functionality. Unfortunately
+the content of this service funnel is located externally. For security reasons
+you have not been given access to this external source but instead only receive
+a static HTML document which contains all the required data. 
+
+These are the main tasks which need to be addressed:
+
+
+**Scraping HTML content
+
+Implementing API functionality**
+
+## Scraping HTML
+
+The HTML contains many elements. The ones relevant for you are the ones which
+contain the attribute “data-tags”. This attribute is a comma separated list of
+all “tags” relevant to this piece of information. The entire HTML element is
+what we are concerned about and will return in our API. We shall refer to each
+html element containing these "data-tags" as a snippet. You can assume that each
+combination of data-tags is unique throughout the HTML file.
+
+Here an example snippet:
+
+
+<article class="article " id="id-39334" data-tags="Widerruf, Mobilfunkvertrag,
+Lastschriftverfahren, My Handy, Prepaid"> <h2>Ich möchte den Bankeinzug
+widerrufen. Wie mache ich das?</h2> <div class="body-text"> <p>Bitte senden Sie
+ein formloses Schreiben mit Angabe der Kunden-/Mobilfunknummer, für die Sie die
+Einzugsermächtigung widerrufen möchten, und der Unterschrift des
+Vertragsinhabers an:</p><p>Telefónica Germany GmbH &#38; Co.
+OHG<br/>Kundenbetreuung<br/>90345 Nürnberg</p></div> <div class="sections">
+                
+
+<a href="https://prev.blau.de/service/rechnung/" class="btn btn-invert-beta
+hidden" title="Weitere Informationen" data-tracking-action="textlink"
+data-tracking-description="cms__cms/meta/service-content-pool/snippet-uebersicht/overview/view_Weitere
+Informationen">Weitere Informationen</a>
+
+</div> </article>
+
+Your goal is to implement the method `def scrape_html(self, html: str):` which
+takes as input the entire html document as a string and stores it in an
+appropriate data structure.
+
+Which data structure you choose will depend on the next part, implementing the
+API.
+
+## Implementing API functionality
+The API works as follows:
+You send it a list of selected tags and you receive one of 3 types of responses
+seen below:
+1. The given list of selected tags points to a unique snippet
+2. The given list of selected tags is valid i.e. it is a subset of a list of
+   tags which belong to a snippet
+3. The given list of selected tags is invalid, this tag combination exists
+   nowhere in the scraped HTML nor is it a subset thereof.
+
+### API Response:
+
+* status - An object with two fields 
+    * code - 0,1,2 depending on which case you are in 
+    * msg - explaining the meaning of the code 
+* snippet - If one exists a HTML element as json serializable string, else null 
+* next_tags - A list of valid tags which the visitor can click on next sorted
+    alphabetically by the name field.
+* selected_tags - A field to verify your API used the correct query parameters
+
+
+### Example Requests
+
+Request:
+
+
+`{"selected_tags": [{"name": "Kündigung"}, {"name": "Mobilfunkvertrag"}]}`
+
+ 
+Response:
+
+If the tag combination exists and has a snippet
 ```
-python3 utils/generate_data.py
+{
+"snippet": "<article> You're welcome </article>", 
+"next_tags": [
+{"name": "Beantragen"},
+{"name": "Bestätigung"}
+],
+"status" : {"code" : 0, "msg": "Valid tags with snippet"},
+"selected_tags": [{"name": "Kündigen"}, {"name": "Mobilfunkvertrag"}]
+}
 ```
 
-For Task 3 simply run `python3 resources/process_manager.py`.
+
+Response:
+
+If the user needs to select more tags to see a snippet
+
+```
+{
+"snippet": null, 
+"next_tags": [{"name": "Final Tag"}],
+"status" : {"code" : 1, "msg": "Valid tags but no snippet"},
+"selected_tags": [
+{"name": "Not"},
+{"name": "Enough"},
+{"name": "Tags"}]
+}
+```
+
+Response:
 
 
-## Task 1
 
-### Description
+Invalid combo of tags - user needs to go back by removing one or more tags
 
-Your team has been asked to manage a server which acts as a micro service for a dating app. Its goal is to return a list of profiles which fit best to the input profile. It works by creating an n-dimensional vector for each profile. These vectors are commonly referred to as embeddings and lie at the heart of modern deep learning. They contain an abstract notion of the meaning of the data by training a vectorizer function on some dataset. 
-
-A separate datascience team has provided you with this vectorization function (found in `utils/vectorize.py`). They have also been kind enough to provide you with a pickle file (found in `data/profiles.pickle`) containing all the dating profiles on your application. 
-
-The micro service will have an endpoint called `/recommend/_id/n` where `_id` is a unique id of each profile in the database (pickle file). Your goal is to create the functionality for this endpoint and have it return the `n` nearest neighbours.
-
-
-Your colleague has already implemented most of the functionality regarding the server setup.
-He couldn’t quite get the functionality right and has gone and simply hard coded some dummy data of how the server should respond.
-Your job is to finish the functionality in `resources/endpoints.py`. To do this you may create any additional external/auxiliary methods or classes as you see fit as long as the /recommend/ endpoint is left unchanged.
-
-### Instructions:
-
-- Your module successfully reads in pickle file from disk and stores the contents in memory.
-- The recommend endpoint returns the correct n nearest neighbour of an incoming profile ordered by cosine similarity.
-- All edge cases are handled intelligently and proactively.
-- Run `make start` to run the server.
+```
+{
+"snippet": null, 
+"next_tags": [],
+"status" : {"code" : 2, "msg": "Invalid tags"},
+"selected_tags": [
+{"name": "Some"},
+{"name": "Invalid"},
+{"name": "Combo"}]
+}
+```
+ 
+### Detailed explanation of logic
 
 
-## Task 2
+Suppose the following snippets exist:
 
-### Description
+“S1” with tags “A”
 
-While the solution above is probably sufficient for our current number of vectors it does not scale if the task is to find nearest neighbours of 1M+ vectors. 
-To do this efficiently your team has decided to use the [annoy](https://github.com/spotify/annoy) library which is implemented in C++ for speed. 
+“S2” with tags “A” “B” “C”
 
-This task will not require your understanding of the inner workings of the annoy library beyond the following:
-Annoy works by first adding all vectors using the `add_item(i, v)` function. It only accepts integers (0-n) as keys to the vectors so you need to store a separate mapping file which maps these integers to their actual value. Thereafter it builds an index for fast lookup. Once the index has been built you cannot add further vectors to it. This index can be written and read to and from disk using the save and load function respectively. A built index has the method `get_nns_by_vector()` which returns the n nearest neighbours of that particular vector as well as the distance.
+“S3” with tags “A” “B” “D”
 
-However using this library also presents its own challenges. 
-As index files are immutable after they have been built we will have to keep creating new indices and writing them to disk.
-Creating new indices is computationally expensive so it should be moved to a separate microservice.
-Reading in a new index file can take several seconds as it is done via slow IO operations.
-
-As our customers demand that they always have fast response times your team has come up with 3 potential solutions. 
-
-#### Solution 1 
-
-We will have one main process running the server and communicating with the outside world. This main process will have two child processes p0 and p1 and two tasks:
-
-- fetch: this is the task of finding and reading the latest index file.
-- answer: this is the task of finding the nearest neighburs.
-
-These 2 processes will switch roles once the fetch process has completed. The main process will always use the subprocess which is assigned the role of the answer process in order to handle requests.
-
-#### Solution 2
-  
-We will have one main process running the server and communicating with the outside world. There will be an Auxiliary process. The auxiliary processes task is to continuously look for new index files. As soon as it discovers one it will spawn a new process to read in this index. Once the new process completes the index read it will tell the Auxiliary process that is now ready to handle requests.
-
-The Auxiliary process and the Main process have a shared piece of memory. Upon receiving the newly spawned processes ready signal the Auxiliary process writes a Queue object to the shared memory which the main process can use to answer requests.
-
-All that is left to do for the Main process upon receiving a new request is selecting which child process it will use to answer this request. 
-
-#### Solution 3 
-
-Annoy gives an option to mmap the index file instead of reading it into memory completely. If you are unfamiliar with what mmap does please check wikipedia [mmap](https://en.wikipedia.org/wiki/Mmap). This will dramatically increase the speed at which indices are loaded thus solving our problem.
-
-### Instructions:
-
-- Analyze each solution and compare them against one another. 
-- Come up with your own best solution and compare them to your colleague solutions.
-- Please do so using 500 words or less. Write your analysis and suggestion below:
-
-#### Analysis
-
-Your analysis.
-
-#### Solution 4
-
-Your solution.
+“S4” with tags “A” “D” “E”
 
 
-## Task 3
 
-### Description
+The logic behind the API should be as follows:
 
-Your colleague has begun to implement a skeleton for solution 1 from the task above. Somehow he has introduced a bug which makes the processes unresponsive. He has asked for your help to get it working. The code can be found in `resources/process_manager.py`.
+1. Given a snippet with a set of tags, any subset of these tags is a valid tag
+   combination
 
-### Instructions:
-- The goal is only to have the exoskeleton in place which handles the logic of switching the role of each task. The actual operations performed by each role need **not** be implemented.
-- Use multiprocessing to implement the solution.
-- To run the code please run `make multi`.
+* “A” “B” is a valid tag set as it is a subset of the tags for "S2" and "S3" “B”
+* “E” is not a valid tag set as it not a subset of any of the above snippets
+
+2. Only valid possible tags are shown in the list of next_tags field
+
+* If “E” is selected only “A” and “D” are shown as next tags
+
+* If “A” is selected “B” “C” “D” “E” are possible next tags
+
+3. A snippet is only output if the selected tags are an exact match to the tags
+on the HTML snippet or there is only one possible snippet which can be reached
+from this tag combination.
+
+* If “A” is selected, “S1” should be shown, 
+
+* if “A” “B” is selected no snippet should be shown.
+
+* If “A” “B” “C” is selected snippet “S2” should be shown
+
+* If “E” is selected snippet “S4” should be shown
+
+4. The order of the path taken to get to any snippet is irrelevant
+
+* Selecting “C” + “B” + “A” is the same as selecting “A” + “C” + “B”
 
 
-## Task 4
 
-### Description
 
-In the refactor folder is a file named `normalize.py` which is used to normalize texts for various languages. 
-It needs to be refactored desperately. 
 
-### Instructions:
-- Refactor `normalize.py` without changing any of the functionality. Please do so paying special attention to readability, reusability and testability. 
-- Please motivate your 3 biggest code changes below:
+**IMPORTANT**
+To make your code testable please implement the method
 
-#### Code changes
+`def handle_request(self, request: dict) -> dict:`
 
-Your motivations.
+Which returns a response dict as shown above in the example responses.
 
-## Task 5 - Bonus
 
-### Description
+### Perfomance
 
-In the bug_fix folder you will find a file named `groceries.py`. The Groceries class contains a small bug which leads to unexpected behaviour. 
+Your implementation should be written so that `handle_request` has constant time
+complexity. 
+There is no bound on how long `scrape_html` should take but you should aim for it
+to be as performant as possible.
 
-### Instructions:
 
-Your task is to identify and eliminate the bug.
-
-## N.B. Please don't forget to push your changes when you finish the challenge! 
