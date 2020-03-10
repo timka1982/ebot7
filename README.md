@@ -14,8 +14,8 @@ combine several of these to receive detailed information. The typical user will
 land on the page without knowing precisely what they are looking for. To guide
 this visitor we will show a list of predefined tags which are most frequently
 searched/visited. The visitor will click on the first tag he sees as related to
-his problem and then choose ever more fine-grained tags until he reaches his
-final topic/piece of information he is searching for.*
+his problem and then choose ever more fine-grained tags until they reaches their
+final topic/piece of information they are searching for.*
 
 
 Here are some screenshots to show this behaviour, initially we start with an
