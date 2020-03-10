@@ -9,4 +9,4 @@ ENV PYTHONPATH ":/app"
 
 RUN pip install -r requirements.txt
 
-CMD python main.py --html_path="/app/example.html"
+CMD python main.py --html_path="/app/html/example.html"
