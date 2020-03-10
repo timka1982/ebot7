@@ -1,31 +1,27 @@
 # Python Coding Challenge
 
 
-Please read all instructions before beginning to implement a solution as later
-specifications could affect earlier design choices.
-
+**Please read all instructions before beginning to implement a solution as later
+specifications could affect earlier design choices.**
 
 You have been asked to implement a service funnel for one of your customers.
 Their specifications are as follows:
-
 
 *The end goal is to have a website where visitors can click on tags/topics and
 combine several of these to receive detailed information. The typical user will
 land on the page without knowing precisely what they are looking for. To guide
 this visitor we will show a list of predefined tags which are most frequently
-searched/visited. The visitor will click on the first tag he sees as related to
-his problem and then choose ever more fine-grained tags until he reaches his
-final topic/piece of information he is searching for.*
-
+searched/visited. The visitors will click on the first tag they see as related to
+their problem and then choose ever more fine-grained tags until they reaches their
+final topic/piece of information theyr are searching for.*
 
 Here are some screenshots to show this behaviour, initially we start with an
-empty list of selected tags. As the visitor clicks on more tags his answer
+empty list of selected tags. As the visitors clicks on more tags their answer
 becomes ever more specific.
 
-![empty list](0.png "No tags selected")
-![one item](1.png "One tag selected")
-![two items](2.png "Two tags selected")
-
+![empty list](static/0.png "No tags selected")
+![one item](static/1.png "One tag selected")
+![two items](static/2.png "Two tags selected")
 
 Your task is to build an API which will power this functionality. Unfortunately
 the content of this service funnel is located externally. For security reasons
@@ -34,10 +30,8 @@ a static HTML document which contains all the required data. 
 
 These are the main tasks which need to be addressed:
 
-
-**Scraping HTML content
-
-Implementing API functionality**
+1) Scraping HTML content
+2) Implementing API functionality
 
 ## Scraping HTML
 
@@ -49,8 +43,7 @@ html element containing these "data-tags" as a snippet. You can assume that each
 combination of data-tags is unique throughout the HTML file.
 
 Here an example snippet:
-
-
+```
 <article class="article " id="id-39334" data-tags="Widerruf, Mobilfunkvertrag,
 Lastschriftverfahren, My Handy, Prepaid"> <h2>Ich möchte den Bankeinzug
 widerrufen. Wie mache ich das?</h2> <div class="body-text"> <p>Bitte senden Sie
@@ -58,14 +51,12 @@ ein formloses Schreiben mit Angabe der Kunden-/Mobilfunknummer, für die Sie die
 Einzugsermächtigung widerrufen möchten, und der Unterschrift des
 Vertragsinhabers an:</p><p>Telefónica Germany GmbH &#38; Co.
 OHG<br/>Kundenbetreuung<br/>90345 Nürnberg</p></div> <div class="sections">
-                
-
 <a href="https://prev.blau.de/service/rechnung/" class="btn btn-invert-beta
 hidden" title="Weitere Informationen" data-tracking-action="textlink"
 data-tracking-description="cms__cms/meta/service-content-pool/snippet-uebersicht/overview/view_Weitere
 Informationen">Weitere Informationen</a>
-
 </div> </article>
+```
 
 Your goal is to implement the method `def scrape_html(self, html: str):` which
 takes as input the entire html document as a string and stores it in an
@@ -75,6 +66,7 @@ Which data structure you choose will depend on the next part, implementing the
 API.
 
 ## Implementing API functionality
+
 The API works as follows:
 You send it a list of selected tags and you receive one of 3 types of responses
 seen below:
@@ -99,13 +91,9 @@ seen below:
 
 Request:
 
-
 `{"selected_tags": [{"name": "Kündigung"}, {"name": "Mobilfunkvertrag"}]}`
 
- 
-Response:
-
-If the tag combination exists and has a snippet
+Response: If the tag combination exists and has a snippet
 ```
 {
 "snippet": "<article> You're welcome </article>", 
@@ -118,11 +106,7 @@ If the tag combination exists and has a snippet
 }
 ```
 
-
-Response:
-
-If the user needs to select more tags to see a snippet
-
+Response: If the user needs to select more tags to see a snippet
 ```
 {
 "snippet": null, 
@@ -135,11 +119,7 @@ If the user needs to select more tags to see a snippet
 }
 ```
 
-Response:
-
-
-
-Invalid combo of tags - user needs to go back by removing one or more tags
+Response: Invalid combo of tags - user needs to go back by removing one or more tags
 
 ```
 {
@@ -155,7 +135,6 @@ Invalid combo of tags - user needs to go back by removing one or more tags
  
 ### Detailed explanation of logic
 
-
 Suppose the following snippets exist:
 
 “S1” with tags “A”
@@ -165,8 +144,6 @@ Suppose the following snippets exist:
 “S3” with tags “A” “B” “D”
 
 “S4” with tags “A” “D” “E”
-
-
 
 The logic behind the API should be as follows:
 
@@ -198,23 +175,18 @@ from this tag combination.
 
 * Selecting “C” + “B” + “A” is the same as selecting “A” + “C” + “B”
 
+# IMPORTANT
 
-
-
-
-**IMPORTANT**
-To make your code testable please implement the method
-
-`def handle_request(self, request: dict) -> dict:`
-
-Which returns a response dict as shown above in the example responses.
-
-
-### Perfomance
-
-Your implementation should be written so that `handle_request` has constant time
-complexity. 
-There is no bound on how long `scrape_html` should take but you should aim for it
-to be as performant as possible.
-
-
+1) To make your code testable please implement the method `def scrape_html(self, html: str):` which takes as input the entire html document as a string and stores it in an appropriate data structure.
+2) To make your code testable please implement the method `def handle_request(self, request: dict) -> dict:` which returns a response dict as shown above in the example responses.
+3) Make sure that you don't change the interface of these methods `def scrape_html(self, html: str):` and `def handle_request(self, request: dict) -> dict:` as they are important for testing your code.
+4) Your code should be compatible with `python 3.6`.
+5) The code should be clean and well documented i.e it should be production ready.
+6) Your implementation should be written so that `handle_request` has constant time complexity. 
+7) There is no bound on how long `scrape_html` should take but you should aim for it to be as performant as possible.
+8) Don't remove/update any library from the `requirements.txt` file. If needed you can add any new library you wish to use.
+9) Make sure that your docker image can be build and a container can be instantiated using it. You can use the following commands to check if your docker image is working properly.
+```
+host@~/python-coding-challenge$ image_id=$(docker build -q . | awk -F':' '{print $2}')
+host@~/python-coding-challenge$ docker run $image_id /bin/sh -c 'python -m unittest discover -s tests -p "*test*.py"'
+```
