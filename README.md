@@ -135,8 +135,8 @@ Response: Invalid combo of tags - user needs to go back by removing one or more 
  
 ### Detailed explanation of logic
 
-Suppose the following snippets exist:
-
+Suppose the HTML contains the following snippets and tags mapping:
+```
 “S1” with tags “A”
 
 “S2” with tags “A” “B” “C”
@@ -144,37 +144,30 @@ Suppose the following snippets exist:
 “S3” with tags “A” “B” “D”
 
 “S4” with tags “A” “D” “E”
+```
 
 The logic behind the API should be as follows:
-
-1. Given a snippet with a set of tags, any subset of these tags is a valid tag
-   combination
-
-* “A” “B” is a valid tag set as it is a subset of the tags for "S2" and "S3" “B”
-* “E” is not a valid tag set as it not a subset of any of the above snippets
-
-2. Only valid possible tags are shown in the list of next_tags field
-
-* If “E” is selected only “A” and “D” are shown as next tags
-
-* If “A” is selected “B” “C” “D” “E” are possible next tags
-
-3. A snippet is only output if the selected tags are an exact match to the tags
-on the HTML snippet or there is only one possible snippet which can be reached
-from this tag combination.
-
-* If “A” is selected, “S1” should be shown, 
-
-* if “A” “B” is selected no snippet should be shown.
-
-* If “A” “B” “C” is selected snippet “S2” should be shown
-
-* If “E” is selected snippet “S4” should be shown
-
-4. The order of the path taken to get to any snippet is irrelevant
-
-* Selecting “C” + “B” + “A” is the same as selecting “A” + “C” + “B”
-
+1. Given a set of snippets with a set of tags, any subset of these tags is a valid tag combination.
+```
+"A" "B" is a valid tag set as it is a subset of the tags for "S2" and "S3".
+"B" "E" is not a valid tag set as it not a subset of any of the above snippets.
+```
+2. Only valid possible tags are shown in the list of next_tags field.
+```
+If “E” is selected only “A” and “D” are shown as next tags.
+If “A” is selected “B” “C” “D” “E” are possible next tags.
+```
+3. A snippet is only output if the selected tags are an exact match to the tags on the HTML snippet or there is only one possible snippet which can be reached from this tag combination.
+```
+If “A” is selected, “S1” should be shown.
+If “A” “B” is selected no snippet should be shown.
+If “A” “B” “C” is selected snippet “S2” should be shown.
+If “E” is selected snippet “S4” should be shown.
+```
+4. The order of the path taken to get to any snippet is irrelevant.
+```
+Selecting “C” “B” “A” is the same as selecting “A” “C” “B”
+```
 # IMPORTANT
 
 1) To make your code testable please implement the method `def scrape_html(self, html: str):` which takes as input the entire html document as a string and stores it in an appropriate data structure.
