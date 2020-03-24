@@ -6,9 +6,23 @@ class ServiceFunnel:
         pass
 
     def scrape_html(self, html: str):
+        """
+        Scrape HTML, extract tags and snippet and store them in an appropriate data structure.
+        
+        Args:
+            html (str) : Entire HTML content. Not the path to HTML document.
+        """
         pass
 
     def handle_request(self, request: dict) -> dict:
+        """
+        Find out the correct snippet that maps to a set of input tags.
+        
+        Args:
+            request (dict): Request object as specified in the readme.
+        Returns:
+            response (dict): Response object as specified in the readme.
+        """
         pass
 
 
