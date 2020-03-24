@@ -1,32 +1,19 @@
 # Python Coding Challenge
 
 
-**Please read all instructions before beginning to implement a solution as later
-specifications could affect earlier design choices.**
+**Please read all instructions before beginning to implement a solution as later specifications could affect earlier design choices.**
 
-You have been asked to implement a service funnel for one of your customers.
-Their specifications are as follows:
+You have been asked to implement a service funnel for one of your customers. Their specifications are as follows:
 
-*The end goal is to have a website where visitors can click on tags/topics and
-combine several of these to receive detailed information. The typical user will
-land on the page without knowing precisely what they are looking for. To guide
-this visitor we will show a list of predefined tags which are most frequently
-searched/visited. The visitors will click on the first tag they see as related to
-their problem and then choose ever more fine-grained tags until they reaches their
-final topic/piece of information theyr are searching for.*
+*The end goal is to have a website where visitors can click on tags/topics and combine several of these to receive detailed information. The typical user will land on the page without knowing precisely what they are looking for. To guide this visitor we will show a list of predefined tags which are most frequently searched/visited. The visitors will click on the first tag they see as related to their problem and then choose ever more fine-grained tags until they reaches their final topic/piece of information theyr are searching for.*
 
-Here are some screenshots to show this behaviour, initially we start with an
-empty list of selected tags. As the visitors clicks on more tags their answer
-becomes ever more specific.
+Here are some screenshots to show this behaviour, initially we start with an empty list of selected tags. As the visitors clicks on more tags their answer becomes ever more specific.
 
 ![empty list](static/0.png "No tags selected")
 ![one item](static/1.png "One tag selected")
 ![two items](static/2.png "Two tags selected")
 
-Your task is to build an API which will power this functionality. Unfortunately
-the content of this service funnel is located externally. For security reasons
-you have not been given access to this external source but instead only receive
-a static HTML document which contains all the required data. 
+Your task is to build an API which will power this functionality. Unfortunately the content of this service funnel is located externally. For security reasons you have not been given access to this external source but instead only receive a static HTML document which contains all the required data. 
 
 These are the main tasks which need to be addressed:
 
@@ -35,12 +22,7 @@ These are the main tasks which need to be addressed:
 
 ## Scraping HTML
 
-The HTML contains many elements. The ones relevant for you are the ones which
-contain the attribute “data-tags”. This attribute is a comma separated list of
-all “tags” relevant to this piece of information. The entire HTML element is
-what we are concerned about and will return in our API. We shall refer to each
-html element containing these "data-tags" as a snippet. You can assume that each
-combination of data-tags is unique throughout the HTML file.
+The HTML contains many elements. The ones relevant for you are the ones which contain the attribute `data-tags`. There can be multiple different elements containing this attribute. This attribute is a comma separated list of all `tags` relevant to this piece of information. The entire HTML element is what we are concerned about and will return in our API. We shall refer to each html element containing these `data-tags` as a `snippet`. You can assume that each combination of `data-tags` is unique throughout the HTML file.
 
 Here an example snippet:
 ```
@@ -58,18 +40,14 @@ Informationen">Weitere Informationen</a>
 </div> </article>
 ```
 
-Your goal is to implement the method `def scrape_html(self, html: str):` which
-takes as input the entire html document as a string and stores it in an
-appropriate data structure.
+Your goal is to implement the method `def scrape_html(self, html: str):` which takes as input the entire html document as a string and stores it in an appropriate data structure.
 
-Which data structure you choose will depend on the next part, implementing the
-API.
+Which data structure you choose will depend on the next part, implementing the API.
 
 ## Implementing API functionality
 
 The API works as follows:
-You send it a list of selected tags and you receive one of 3 types of responses
-seen below:
+You send it a list of selected tags and you receive one of 3 types of responses seen below:
 1. The given list of selected tags points to a unique snippet
 2. The given list of selected tags is valid i.e. it is a subset of a list of
    tags which belong to a snippet
@@ -90,8 +68,9 @@ seen below:
 ### Example Requests
 
 Request:
-
-`{"selected_tags": [{"name": "Kündigung"}, {"name": "Mobilfunkvertrag"}]}`
+```
+{"selected_tags": [{"name": "Kündigung"}, {"name": "Mobilfunkvertrag"}]}
+```
 
 Response: If the tag combination exists and has a snippet
 ```
