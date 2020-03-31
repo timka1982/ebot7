@@ -153,7 +153,7 @@ Selecting “C” “B” “A” is the same as selecting “A” “C” “B�
 2) To make your code testable please implement the method `def handle_request(self, request: dict) -> dict:` which returns a response dict as shown above in the example responses.
 3) Make sure that you don't change the interface of these methods `def scrape_html(self, html: str):` and `def handle_request(self, request: dict) -> dict:` as they are important for testing your code.
 4) Your code should be compatible with `python 3.6`.
-5) The code should be clean and well documented i.e it should be production ready.
+5) The code should be clean, well documented and properly tested i.e it should be production ready.
 6) Your implementation should be written so that `handle_request` has constant time complexity. 
 7) There is no bound on how long `scrape_html` should take but you should aim for it to be as performant as possible.
 8) Don't remove/update any library from the `requirements.txt` file. If needed you can add any new library you wish to use.
