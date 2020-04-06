@@ -125,39 +125,43 @@ Suppose the HTML contains the following snippets and tags mapping:
 “S4” with tags “A” “D” “E”
 ```
 
-The logic behind the API should be as follows:
+Please make sure your API should satisfy the following use cases. It would be also nice if you write unit tests for these use cases.
 1. Given a set of snippets with a set of tags, any subset of these tags is a valid tag combination.
 ```
 "A" "B" is a valid tag set as it is a subset of the tags for "S2" and "S3".
 "B" "E" is not a valid tag set as it not a subset of any of the above snippets.
 ```
-2. Only valid possible tags are shown in the list of next_tags field.
+2. Only valid possible tags are shown in the list of next_tags field. 
 ```
-If “E” is selected only “A” and “D” are shown as next tags.
-If “A” is selected “B” “C” “D” “E” are possible next tags.
+If "B" is selected only "A" "C" "D" are shown as next tags.
+If "A" is selected "B" "C" "D" "E" are possible next tags.
 ```
-3. A snippet is only output if the selected tags are an exact match to the tags on the HTML snippet or there is only one possible snippet which can be reached from this tag combination.
+3. A snippet is only output if the selected tags are an exact match to the tags on the HTML snippet.
 ```
-If “A” is selected, “S1” should be shown.
-If “A” “B” is selected no snippet should be shown.
-If “A” “B” “C” is selected snippet “S2” should be shown.
-If “E” is selected snippet “S4” should be shown.
+If "A" is selected, "S1" should be shown.
+If "A" "B" "C" is selected snippet "S2" should be shown.
+If "A" "B" is selected no snippet should be shown because there's not unique snippet possible in this case.
 ```
-4. The order of the path taken to get to any snippet is irrelevant.
+4. A snippet can also be output if there is only one possible snippet which can be reached from the selected tag combination. 
 ```
-Selecting “C” “B” “A” is the same as selecting “A” “C” “B”
+If "E" is selected snippet "S4" should be shown. There's no exact match happening in this case and since there's only one possibility we can do fast-forward and assume that the selected tags consisted of "A" "D" "E" instead of just "E". There's also no need to show "A" "D" as next_tags in this case.
 ```
-# IMPORTANT
+5. The order of the path taken to get to any snippet is irrelevant.
+```
+Selecting "C" "B" "A" is the same as selecting "A" "C" "B"
+```
+# SUPER IMPORTANT INSTRUCTIONS
 
 1) To make your code testable please implement the method `def scrape_html(self, html: str):` which takes as input the entire html document as a string and stores it in an appropriate data structure.
 2) To make your code testable please implement the method `def handle_request(self, request: dict) -> dict:` which returns a response dict as shown above in the example responses.
 3) Make sure that you don't change the interface of these methods `def scrape_html(self, html: str):` and `def handle_request(self, request: dict) -> dict:` as they are important for testing your code.
 4) Your code should be compatible with `python 3.6`.
-5) The code should be clean, well documented and properly tested i.e it should be production ready.
+5) The code should be clean, well documented and properly tested(make sure it satisfies all the use cases mentioned in the instructions here) i.e it should be production ready.
 6) Your implementation should be written so that `handle_request` has constant time complexity. 
 7) There is no bound on how long `scrape_html` should take but you should aim for it to be as performant as possible.
 8) Don't remove/update any library from the `requirements.txt` file. If needed you can add any new library you wish to use.
 9) Make sure that your docker image can be build and a container can be instantiated using it. You can use the following commands to check if your docker image is working properly.
+10) To better understand your solution it would be nice if you also add a small paragraph (in the README) explaing your approach in words. Please don't forget to include the pros/cons of your approach and specially the usecases that it fails at.
 ```
 host@~/python-coding-challenge$ image_id=$(docker build -q . | awk -F':' '{print $2}')
 host@~/python-coding-challenge$ docker run $image_id /bin/sh -c 'python -m unittest discover -s tests -p "*test*.py"'
