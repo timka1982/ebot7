@@ -130,6 +130,7 @@ Please make sure your API should satisfy the following use cases. It would be al
 ```
 "A" "B" is a valid tag set as it is a subset of the tags for "S2" and "S3".
 "B" "E" is not a valid tag set as it not a subset of any of the above snippets.
+"X" is not a valid tag as it is not present in any of the above snippets.
 ```
 2. Only valid possible tags are shown in the list of next_tags field. 
 ```
