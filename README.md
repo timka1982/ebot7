@@ -157,11 +157,11 @@ Selecting "C" "B" "A" is the same as selecting "A" "C" "B"
 3) Make sure that you don't change the interface of these methods `def scrape_html(self, html: str):` and `def handle_request(self, request: dict) -> dict:` as they are important for testing your code.
 4) Your code should be compatible with `python 3.6`.
 5) The code should be clean, well documented and properly tested(make sure it satisfies all the use cases mentioned in the instructions here) i.e it should be production ready.
-6) Your implementation should be written so that `handle_request` has constant time complexity. 
-7) There is no bound on how long `scrape_html` should take but you should aim for it to be as performant as possible.
-8) Don't remove/update any library from the `requirements.txt` file. If needed you can add any new library you wish to use.
-9) Make sure that your docker image can be build and a container can be instantiated using it. You can use the following commands to check if your docker image is working properly.
-10) To better understand your solution it would be nice if you also add a small paragraph (in the README) explaing your approach in words. Please don't forget to include the pros/cons of your approach and specially the usecases that it fails at.
+6) To better understand your solution it would be nice if you also add a small paragraph (in the README) explaing your approach in words. Please don't forget to include the pros/cons of your approach and specially the usecases that it fails at.
+7) Your implementation should be written so that `handle_request` has constant time complexity. 
+8) There is no bound on how long `scrape_html` should take but you should aim for it to be as performant as possible.
+9) Don't remove/update any library from the `requirements.txt` file. If needed you can add any new library you wish to use.
+10) Make sure that your docker image can be build and a container can be instantiated using it. You can use the following commands to check if your docker image is working properly.
 ```
 host@~/python-coding-challenge$ image_id=$(docker build -q . | awk -F':' '{print $2}')
 host@~/python-coding-challenge$ docker run $image_id /bin/sh -c 'python -m unittest discover -s tests -p "*test*.py"'
