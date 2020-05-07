@@ -153,7 +153,7 @@ Selecting "C" "B" "A" is the same as selecting "A" "C" "B"
 ```
 # SUPER IMPORTANT INSTRUCTIONS
 
-1) To make your code testable please implement the method `def scrape_html(self, html: str):` which takes as input the entire html document as a string and stores it in an appropriate data structure.
+1) To make your code testable please implement the method `def scrape_html(self, html: str):` which takes as input the entire html document as a string and stores it in an appropriate data structure. Don't do any changes in the `run_test.sh` file.
 2) To make your code testable please implement the method `def handle_request(self, request: dict) -> dict:` which returns a response dict as shown above in the example responses.
 3) Make sure that you don't change the interface of these methods `def scrape_html(self, html: str):` and `def handle_request(self, request: dict) -> dict:` as they are important for testing your code.
 4) Your code should be compatible with `python 3.6`.
