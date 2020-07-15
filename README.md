@@ -145,7 +145,9 @@ If "A" "B" is selected no snippet should be shown because there's not unique sni
 ```
 4. A snippet can also be output if there is only one possible snippet which can be reached from the selected tag combination. 
 ```
-If "E" is selected snippet "S4" should be shown. There's no exact match happening in this case and since there's only one possibility we can do fast-forward and assume that the selected tags consisted of "A" "D" "E" instead of just "E". There's also no need to show "A" "D" as next_tags in this case.
+If "E" is selected snippet "S4" should be shown. There's no exact match happening in this case and since there's only one 
+possibility we can do fast-forward and assume that the selected tags consisted of "A" "D" "E" instead of just "E". 
+There's also no need to show "A" "D" as next_tags in this case.
 ```
 5. The order of the path taken to get to any snippet is irrelevant.
 ```
