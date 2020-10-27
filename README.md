@@ -13,7 +13,8 @@ Here are some screenshots to show this behaviour, initially we start with an emp
 ![one item](static/1.png "One tag selected")
 ![two items](static/2.png "Two tags selected")
 
-Your task is to build an API which will power this functionality. Unfortunately the content of this service funnel is located externally. For security reasons you have not been given access to this external source but instead only receive a static HTML document which contains all the required data. 
+Your task is to build an API which will power this functionality. Unfortunately the content of this service funnel is located externally. 
+For security reasons you have not been given access to this external source but instead only receive a static HTML document which contains all the required data. 
 
 These are the main tasks which need to be addressed:
 
@@ -22,11 +23,26 @@ These are the main tasks which need to be addressed:
 
 ## Scraping HTML
 
-The HTML contains many elements. The ones relevant for you are the ones which contain the attribute `data-tags`. There can be multiple different elements containing this attribute. This attribute is a comma separated list of all `tags` relevant to this piece of information. The entire HTML element is what we are concerned about and will return in our API. We shall refer to each html element containing these `data-tags` as a `snippet`. You can assume that each combination of `data-tags` is unique throughout the HTML file.
+The HTML contains many elements. The ones relevant for you are the ones which contain the attribute `data-tags`. 
+There can be multiple different elements containing this attribute. This attribute is a comma separated list of all `tags` relevant to this piece of information. 
+The entire HTML element is what we are concerned about and will return in our API. We shall refer to each html element containing these `data-tags` as a `snippet`. 
+You can assume that each combination of `data-tags` is unique throughout the HTML file.
 
 Here an example snippet:
 ```
 <article class="article " id="id-39334" data-tags="Widerruf, Mobilfunkvertrag,
+Lastschriftverfahren, My Handy, Prepaid"> <h2>Ich möchte den Bankeinzug
+widerrufen. Wie mache ich das?</h2> <div class="body-text"> <p>Bitte senden Sie
+ein formloses Schreiben mit Angabe der Kunden-/Mobilfunknummer, für die Sie die
+Einzugsermächtigung widerrufen möchten, und der Unterschrift des
+Vertragsinhabers an:</p><p>Telefónica Germany GmbH &#38; Co.
+OHG<br/>Kundenbetreuung<br/>90345 Nürnberg</p></div> <div class="sections">
+<a href="https://prev.blau.de/service/rechnung/" class="btn btn-invert-beta
+hidden" title="Weitere Informationen" data-tracking-action="textlink"
+data-tracking-description="cms__cms/meta/service-content-pool/snippet-uebersicht/overview/view_Weitere
+Informationen">Weitere Informationen</a>
+</div> </article>
+<article class="article " id="id-39335" data-tags="Biderruf, Gobilfunkvertrag,
 Lastschriftverfahren, My Handy, Prepaid"> <h2>Ich möchte den Bankeinzug
 widerrufen. Wie mache ich das?</h2> <div class="body-text"> <p>Bitte senden Sie
 ein formloses Schreiben mit Angabe der Kunden-/Mobilfunknummer, für die Sie die

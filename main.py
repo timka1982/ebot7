@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 import argparse
 
 
@@ -12,7 +13,20 @@ class ServiceFunnel:
         Args:
             html (str) : Entire HTML content. Not the path to HTML document.
         """
-        pass
+        index = 0
+        snippets_dict = {}
+        soup = BeautifulSoup(html, 'lxml')
+
+        for tag in soup.find_all():
+            for attr in tag.attrs:
+                if 'data-tags' == attr:
+                    index = index + 1
+                    snippets_dict[str(index)] = {}
+                    snippets_dict[str(index)]['snippet'] = "<{}> {} </{}>".format(tag.attrs['class'][0], tag.text, tag.attrs['class'][0])
+                    data_tags = [item.strip() for item in tag.attrs['data-tags'].split(',')]
+                    snippets_dict[str(index)]['data-tags'] = sorted(data_tags)
+                    break
+
 
     def handle_request(self, request: dict) -> dict:
         """
